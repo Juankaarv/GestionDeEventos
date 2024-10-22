@@ -1,75 +1,74 @@
-const db = require('../../index');  
+// server/bd/controllers/ticketsController.js
+const db = require('../../db');
 
 // Obtener todos los tickets
-exports.getAllTickets = (req, res) => {
-    const query = 'SELECT * FROM Tickets';
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('Error obteniendo los tickets:', err);
-            res.status(500).json({ error: 'Error obteniendo los tickets' });
-        } else {
-            res.json(results);
-        }
-    });
+exports.getAllTickets = async (req, res) => {
+    try {
+        const [results] = await db.query('SELECT * FROM Tickets');
+        res.json(results);
+    } catch (err) {
+        console.error('Error obteniendo los tickets:', err);
+        res.status(500).json({ error: 'Error obteniendo los tickets' });
+    }
 };
 
 // Obtener ticket por ID
-exports.getTicketById = (req, res) => {
-    const query = 'SELECT * FROM Tickets WHERE id = ?';
-    const { id } = req.params;
-    db.query(query, [id], (err, results) => {
-        if (err) {
-            console.error('Error obteniendo el ticket:', err);
-            res.status(500).json({ error: 'Error obteniendo el ticket' });
-        } else {
-            res.json(results[0] || null); // Devolver null si no se encuentra el ticket
+exports.getTicketById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [results] = await db.query('SELECT * FROM Tickets WHERE id = ?', [id]);
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Ticket no encontrado' });
         }
-    });
+        res.json(results[0]);
+    } catch (err) {
+        console.error('Error obteniendo el ticket:', err);
+        res.status(500).json({ error: 'Error obteniendo el ticket' });
+    }
 };
 
 // Crear nuevo ticket
-exports.createTicket = (req, res) => {
+exports.createTicket = async (req, res) => {
     const { codigo_ticket, usuario_id, evento_id, estado_ticket_id } = req.body;
-    const query = 'INSERT INTO Tickets (codigo_ticket, usuario_id, evento_id, estado_ticket_id) VALUES (?, ?, ?, ?)';
-    db.query(query, [codigo_ticket, usuario_id, evento_id, estado_ticket_id], (err, results) => {
-        if (err) {
-            console.error('Error creando el ticket:', err);
-            res.status(500).json({ error: 'Error creando el ticket' });
-        } else {
-            res.status(201).json({ message: 'Ticket creado con éxito', id: results.insertId });
-        }
-    });
+    try {
+        const query = 'INSERT INTO Tickets (codigo_ticket, usuario_id, evento_id, estado_ticket_id) VALUES (?, ?, ?, ?)';
+        const [results] = await db.query(query, [codigo_ticket, usuario_id, evento_id, estado_ticket_id]);
+        res.status(201).json({ message: 'Ticket creado con éxito', id: results.insertId });
+    } catch (err) {
+        console.error('Error creando el ticket:', err);
+        res.status(500).json({ error: 'Error creando el ticket' });
+    }
 };
 
 // Actualizar ticket
-exports.updateTicket = (req, res) => {
+exports.updateTicket = async (req, res) => {
     const { codigo_ticket, usuario_id, evento_id, estado_ticket_id } = req.body;
     const { id } = req.params;
-    const query = 'UPDATE Tickets SET codigo_ticket = ?, usuario_id = ?, evento_id = ?, estado_ticket_id = ? WHERE id = ?';
-    db.query(query, [codigo_ticket, usuario_id, evento_id, estado_ticket_id, id], (err, results) => {
-        if (err) {
-            console.error('Error actualizando el ticket:', err);
-            res.status(500).json({ error: 'Error actualizando el ticket' });
-        } else if (results.affectedRows === 0) {
-            res.status(404).json({ error: 'Ticket no encontrado' });
-        } else {
-            res.json({ message: 'Ticket actualizado con éxito' });
+    try {
+        const query = 'UPDATE Tickets SET codigo_ticket = ?, usuario_id = ?, evento_id = ?, estado_ticket_id = ? WHERE id = ?';
+        const [results] = await db.query(query, [codigo_ticket, usuario_id, evento_id, estado_ticket_id, id]);
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Ticket no encontrado' });
         }
-    });
+        res.json({ message: 'Ticket actualizado con éxito' });
+    } catch (err) {
+        console.error('Error actualizando el ticket:', err);
+        res.status(500).json({ error: 'Error actualizando el ticket' });
+    }
 };
 
 // Eliminar ticket
-exports.deleteTicket = (req, res) => {
+exports.deleteTicket = async (req, res) => {
     const { id } = req.params;
-    const query = 'DELETE FROM Tickets WHERE id = ?';
-    db.query(query, [id], (err, results) => {
-        if (err) {
-            console.error('Error eliminando el ticket:', err);
-            res.status(500).json({ error: 'Error eliminando el ticket' });
-        } else if (results.affectedRows === 0) {
-            res.status(404).json({ error: 'Ticket no encontrado' });
-        } else {
-            res.json({ message: 'Ticket eliminado con éxito' });
+    try {
+        const query = 'UPDATE Tickets SET activo = FALSE WHERE id = ?';
+        const [results] = await db.query(query, [id]);
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Ticket no encontrado' });
         }
-    });
+        res.json({ message: 'Ticket marcado como inactivo' });
+    } catch (err) {
+        console.error('Error marcando el ticket como inactivo:', err);
+        res.status(500).json({ error: 'Error marcando el ticket como inactivo' });
+    }
 };

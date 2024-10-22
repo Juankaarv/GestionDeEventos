@@ -1,75 +1,71 @@
-const db = require('../../index');  
+const db = require('../../db');
 
 // Obtener todos los roles
-exports.getAllRoles = (req, res) => {
-    const query = 'SELECT * FROM Roles';
-    db.query(query, (err, results) => {
-        if (err) {
-            console.error('Error obteniendo los roles:', err);
-            res.status(500).json({ error: 'Error obteniendo los roles' });
-        } else {
-            res.json(results);
-        }
-    });
+exports.getAllRoles = async (req, res) => {
+    try {
+        const [results] = await db.query('SELECT * FROM Roles');
+        res.json(results);
+    } catch (err) {
+        console.error('Error obteniendo los roles:', err);
+        res.status(500).json({ error: 'Error obteniendo los roles' });
+    }
 };
 
 // Obtener rol por ID
-exports.getRolById = (req, res) => {
-    const query = 'SELECT * FROM Roles WHERE id = ?';
-    const { id } = req.params;
-    db.query(query, [id], (err, results) => {
-        if (err) {
-            console.error('Error obteniendo el rol:', err);
-            res.status(500).json({ error: 'Error obteniendo el rol' });
-        } else {
-            res.json(results[0] || null); // Devolver null si no se encuentra el rol
+exports.getRolById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [results] = await db.query('SELECT * FROM Roles WHERE id = ?', [id]);
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Rol no encontrado' });
         }
-    });
+        res.json(results[0]);
+    } catch (err) {
+        console.error('Error obteniendo el rol:', err);
+        res.status(500).json({ error: 'Error obteniendo el rol' });
+    }
 };
 
 // Crear nuevo rol
-exports.createRol = (req, res) => {
+exports.createRol = async (req, res) => {
     const { nombre } = req.body;
-    const query = 'INSERT INTO Roles (nombre) VALUES (?)';
-    db.query(query, [nombre], (err, results) => {
-        if (err) {
-            console.error('Error creando el rol:', err);
-            res.status(500).json({ error: 'Error creando el rol' });
-        } else {
-            res.status(201).json({ message: 'Rol creado con éxito', id: results.insertId });
-        }
-    });
+    try {
+        const [results] = await db.query('INSERT INTO Roles (nombre) VALUES (?)', [nombre]);
+        res.status(201).json({ message: 'Rol creado con éxito', id: results.insertId });
+    } catch (err) {
+        console.error('Error creando el rol:', err);
+        res.status(500).json({ error: 'Error creando el rol' });
+    }
 };
 
 // Actualizar rol
-exports.updateRol = (req, res) => {
+exports.updateRol = async (req, res) => {
     const { nombre } = req.body;
     const { id } = req.params;
-    const query = 'UPDATE Roles SET nombre = ? WHERE id = ?';
-    db.query(query, [nombre, id], (err, results) => {
-        if (err) {
-            console.error('Error actualizando el rol:', err);
-            res.status(500).json({ error: 'Error actualizando el rol' });
-        } else if (results.affectedRows === 0) {
-            res.status(404).json({ error: 'Rol no encontrado' });
-        } else {
-            res.json({ message: 'Rol actualizado con éxito' });
+    try {
+        const [results] = await db.query('UPDATE Roles SET nombre = ? WHERE id = ?', [nombre, id]);
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Rol no encontrado' });
         }
-    });
+        res.json({ message: 'Rol actualizado con éxito' });
+    } catch (err) {
+        console.error('Error actualizando el rol:', err);
+        res.status(500).json({ error: 'Error actualizando el rol' });
+    }
 };
 
 // Eliminar rol
-exports.deleteRol = (req, res) => {
+exports.deleteRol = async (req, res) => {
     const { id } = req.params;
-    const query = 'DELETE FROM Roles WHERE id = ?';
-    db.query(query, [id], (err, results) => {
-        if (err) {
-            console.error('Error eliminando el rol:', err);
-            res.status(500).json({ error: 'Error eliminando el rol' });
-        } else if (results.affectedRows === 0) {
-            res.status(404).json({ error: 'Rol no encontrado' });
-        } else {
-            res.json({ message: 'Rol eliminado con éxito' });
+    try {
+        const query = 'UPDATE Roles SET activo = FALSE WHERE id = ?';
+        const [results] = await db.query(query, [id]);
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Rol no encontrado' });
         }
-    });
+        res.json({ message: 'Rol marcado como inactivo' });
+    } catch (err) {
+        console.error('Error marcando el rol como inactivo:', err);
+        res.status(500).json({ error: 'Error marcando el rol como inactivo' });
+    }
 };
