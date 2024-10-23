@@ -23,7 +23,7 @@ function Login() {
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('token', data.token);
-                navigate('/dashboard');
+                navigate('/eventos');
             } else {
                 setErrorMessage('Credenciales incorrectas');
             }

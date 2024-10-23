@@ -7,7 +7,7 @@ const Header = () => {
       <div className="logo">clicket.</div>
       <nav>
         <ul>
-          <li><a href="#">Eventos</a></li>
+          <li><a href="../eventos">Eventos</a></li>
           <li><a href="../login">Ingresar</a></li>
          
 
