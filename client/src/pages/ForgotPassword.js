@@ -1,47 +1,61 @@
-// src/pages/ForgotPassword.js
 import React, { useState } from 'react';
+import '../components/ForgotPassword.css'; 
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({
+    userOrEmail: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
 
-  const handleSubmit = async (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    try {
-      const response = await fetch('http://localhost:3001/api/usuarios/forgot-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ correo_electronico: email })
-      });
 
-      if (response.ok) {
-        setMessage('Revisa tu correo electrónico para restablecer tu contraseña.');
-      } else {
-        setMessage('Hubo un error enviando el correo. Inténtalo de nuevo.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setMessage('Error al conectar con el servidor.');
+   
+    if (formData.newPassword !== formData.confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
     }
+
+    console.log('Datos de recuperación:', formData);
   };
 
   return (
     <div className="forgot-password-container">
+        
       <h2>Olvidé mi contraseña</h2>
       <form onSubmit={handleSubmit}>
         <input
-          type="email"
-          placeholder="Ingresa tu correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          name="userOrEmail"
+          placeholder="Usuario o correo electrónico"
+          value={formData.userOrEmail}
+          onChange={handleChange}
           required
         />
-        <button type="submit">Enviar enlace de restablecimiento</button>
+        <input
+          type="password"
+          name="newPassword"
+          placeholder="Nueva contraseña"
+          value={formData.newPassword}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirmar nueva contraseña"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Restablecer contraseña</button>
       </form>
-      {message && <p>{message}</p>}
     </div>
   );
 };

@@ -7,6 +7,7 @@ const usuariosRoutes = require('./bd/routes/usuarios');
 const eventosRoutes = require('./bd/routes/eventos');
 const rolesRoutes = require('./bd/routes/roles');
 const ticketsRoutes = require('./bd/routes/tickets');
+const categorias = require('./bd/routes/categorias');
 
 const app = express();
 const PORT = 3001;
@@ -25,6 +26,7 @@ app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/eventos', eventosRoutes);
 app.use('/api/roles', rolesRoutes);
 app.use('/api/tickets', ticketsRoutes);
+app.use('/api/categorias', categorias);
 
 // Levantar el servidor
 app.listen(PORT, () => {

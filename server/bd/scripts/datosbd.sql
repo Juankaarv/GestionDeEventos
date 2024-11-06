@@ -1,65 +1,77 @@
--- Insertar Roles
+-- Selección de la base de datos
+USE sistema_eventos05;
+
+-- Insertar datos en la tabla de Roles
 INSERT INTO Roles (nombre) VALUES 
-('Administrador'),
-('Usuario'),
+('Administrador'), 
+('Usuario'), 
 ('Organizador');
 
--- Insertar Usuarios
-INSERT INTO Usuarios (nombre, correo_electronico, contrasena, carnet, fecha_nacimiento, rol_id) VALUES
-('Juan Pérez', 'juan.perez@example.com', 'password123', 'CARNET123', '1990-05-15', 1),
-('María López', 'maria.lopez@example.com', 'password123', 'CARNET124', '1985-09-10', 2),
-('Carlos Ruiz', 'carlos.ruiz@example.com', 'password123', 'CARNET125', '2000-01-22', 3);
+-- Insertar datos en la tabla de Usuarios
+INSERT INTO Usuarios (nombres, apellidos, numero_celular, correo_electronico, contrasena, carnet, rol_id) VALUES 
+('Juan', 'Perez', '555123456', 'juan.perez@example.com', 'password123', '123456', 1),
+('Maria', 'Lopez', '555654321', 'maria.lopez@example.com', 'password123', '654321', 2);
 
--- Insertar Eventos
-INSERT INTO Eventos (titulo, descripcion, ubicacion, fecha_hora, precio, cupo_disponible) VALUES
-('Concierto de Rock', 'Un concierto de rock con bandas locales.', 'Auditorio Nacional', '2024-11-15 20:00:00', 150.00, 200),
-('Seminario de Tecnología', 'Seminario sobre las últimas tendencias en tecnología.', 'Centro de Convenciones', '2024-12-01 09:00:00', 50.00, 100),
-('Taller de Fotografía', 'Aprende técnicas avanzadas de fotografía.', 'Estudio Creativo', '2024-11-25 10:00:00', 75.00, 50);
+-- Insertar datos en la tabla de TipoEventos
+INSERT INTO TipoEventos (nombre, descripcion) VALUES 
+('Musical', 'Eventos relacionados con música'), 
+('Deportivo', 'Eventos deportivos'), 
+('Conferencia', 'Conferencias de diferentes temas');
 
--- Insertar Estados de Ticket
-INSERT INTO EstadoTickets (estado) VALUES 
-('Disponible'),
-('Reservado'),
-('Cancelado');
+-- Insertar datos en la tabla de CategoriaEventos
+INSERT INTO CategoriaEventos (tipo_evento_id, nombre, descripcion) VALUES 
+(1, 'Concierto', 'Conciertos de diferentes géneros musicales'), 
+(2, 'Fútbol', 'Partidos de fútbol'), 
+(3, 'Tecnología', 'Conferencias relacionadas con tecnología');
 
--- Insertar Tickets
-INSERT INTO Tickets (codigo_ticket, usuario_id, evento_id, estado_ticket_id) VALUES
-('TICKET001', 1, 1, 2),
-('TICKET002', 2, 2, 1),
-('TICKET003', 3, 3, 1);
+-- Insertar datos en la tabla de Eventos
+INSERT INTO Eventos (categoria_evento_id, titulo, url, descripcion, organizadores, ubicacion, fecha_hora, precio_base, cupo_disponible, es_evento_virtual, url_transmision, plataforma_virtual) VALUES 
+(1, 'Concierto Rock Fest', 'http://rockfest.com', 'Festival de rock en vivo', 'RockFest Org', 'Estadio Nacional', '2023-11-15 20:00:00', 50.00, 1000, FALSE, NULL, NULL),
+(2, 'Final de Liga', NULL, 'Partido final de la liga de fútbol', 'Liga Org', 'Estadio Metropolitano', '2023-12-01 18:00:00', 30.00, 500, FALSE, NULL, NULL),
+(3, 'Conferencia de IA', 'http://techconf.com', 'Conferencia sobre Inteligencia Artificial', 'TechConf', 'Online', '2024-01-20 10:00:00', 0, 300, TRUE, 'http://streaming.techconf.com', 'Zoom');
 
--- Insertar Estados de Reserva
-INSERT INTO EstadoReservas (estado) VALUES 
-('Pendiente'),
-('Confirmada'),
-('Cancelada');
+-- Insertar datos en la tabla de Zonas
+INSERT INTO Zonas (evento_id, nombre, capacidad, precio_extra, descripcion) VALUES 
+(1, 'VIP', 100, 20.00, 'Zona VIP con mejores asientos'), 
+(1, 'General', 900, 0.00, 'Zona general'), 
+(2, 'Gradería', 300, 0.00, 'Zona de gradas'), 
+(2, 'Palco', 200, 15.00, 'Zona de palco');
 
--- Insertar Reservas
-INSERT INTO Reservas (usuario_id, evento_id, asiento, estado_reserva_id) VALUES
-(1, 1, 'A1', 2),
-(2, 2, 'B5', 1),
-(3, 3, 'C3', 3);
+-- Insertar datos en la tabla de Asientos
+INSERT INTO Asientos (zona_id, fila, numero, estado) VALUES 
+(1, 'A', 1, 'disponible'), 
+(1, 'A', 2, 'reservado'), 
+(2, 'B', 10, 'vendido');
 
--- Insertar Métodos de Pago
-INSERT INTO MetodoPagos (metodo) VALUES 
-('Tarjeta de Crédito'),
-('PayPal'),
-('Transferencia Bancaria');
+-- Insertar datos en la tabla de TipoTickets
+INSERT INTO TipoTickets (nombre, es_de_pago, precio, limite_compra, stock, fecha_inicio_venta, fecha_final_venta, es_por_fecha, evento_id) VALUES 
+('Entrada General', TRUE, 50.00, 5, 100, '2023-11-01 08:00:00', '2023-11-15 20:00:00', TRUE, 1), 
+('Entrada VIP', TRUE, 70.00, 2, 50, '2023-11-01 08:00:00', '2023-11-15 20:00:00', TRUE, 1), 
+('Entrada Gratuita Conferencia', FALSE, 0, 1, 300, '2023-12-01 08:00:00', '2024-01-20 09:00:00', TRUE, 3);
 
--- Insertar Estados de Pago
+-- Insertar datos en la tabla de EstadoPagos
 INSERT INTO EstadoPagos (estado) VALUES 
-('Pendiente'),
-('Completado'),
+('Pendiente'), 
+('Completado'), 
 ('Fallido');
 
--- Insertar Pagos
-INSERT INTO Pagos (usuario_id, ticket_id, monto, metodo_pago_id, estado_pago_id) VALUES
-(1, 1, 150.00, 1, 2),
-(2, 2, 50.00, 2, 1),
-(3, 3, 75.00, 3, 2);
+-- Insertar datos en la tabla de MetodoPagos
+INSERT INTO MetodoPagos (metodo) VALUES 
+('Tarjeta de Crédito'), 
+('PayPal'), 
+('Transferencia Bancaria');
 
--- Insertar Historial de Acciones
-INSERT INTO Historial (usuario_id, evento_id, accion) VALUES
-(1, 1, 'Compra de ticket'),
-(2, 2, 'Reserva realizada'),
-(3, 3, 'Pago completado');
+-- Insertar datos en la tabla de Pagos
+INSERT INTO Pagos (usuario_id, ticket_id, monto, metodo_pago_id, estado_pago_id) VALUES 
+(1, 1, 50.00, 1, 2), 
+(2, 2, 70.00, 2, 1);
+
+-- Insertar datos en la tabla de Entradas
+INSERT INTO Entradas (usuario_id, evento_id, zona_id, asiento_id) VALUES 
+(1, 1, 1, 1), 
+(2, 2, 2, NULL);
+
+-- Insertar datos en la tabla de HistorialAcciones
+INSERT INTO HistorialAcciones (usuario_id, entidad, accion, detalles) VALUES 
+(1, 'Eventos', 'Creación', 'Creación del evento Rock Fest'), 
+(2, 'Entradas', 'Compra', 'Compra de entrada para el partido de fútbol final');

@@ -1,16 +1,35 @@
 .register-container {
-    width: 400px;
-    background-color: #f7f7f7;
+  display: flex;
+  font-family: 'Open Sans', sans-serif;
+    background-color: #f5f5f5;
     margin: 50px auto;
     padding: 30px;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     text-align: center;
+    overflow: hidden;
+    width: 800px;
+    height: 600px;
   }
-
+  .form-section {
+    flex: 1; 
+    text-align: left; 
+}
+  .logo-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5; 
+    padding: 20px;
+}
+.logo-section img {
+  max-width: 150%;
+  height: auto;
+}
   .register-background {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +64,7 @@
   button {
     width: 100%;
     padding: 12px;
-    background-color: #28a745;
+    background-color: #A86666;
     color: white;
     border: none;
     border-radius: 5px;
@@ -54,15 +73,17 @@
   }
   
   button:hover {
-    background-color: #218838;
+    background-color: #6a3a3b;
   }
   
   a {
-    color: #007bff;
+    color: #A86666;
     text-decoration: none;
   }
   
   a:hover {
     text-decoration: underline;
   }
-  
+  h2 {
+    color: #A86666;
+  }

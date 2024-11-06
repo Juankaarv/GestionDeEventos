@@ -1,33 +1,16 @@
-// src/pages/Evento.js
+// src/pages/Home.js
 import React from 'react';
-import Ticket from '../components/Ticket';
+import Layout from '../components/Layout';
 
-const Evento = () => {
-  const ticketData = {
-    ticketType: "VIP",
-    title: "Concert 2024",
-    name: "John Doe",
-    date: "22-10-2024",
-    address: "123 Main St, Cityville",
-    qrCode: "https://example.com/qr-code.png", // Ruta a la imagen del QR
-    id: "1234567890"
-  };
-
+const Eventos = () => {
   return (
-    <div>
-      <h1>Evento</h1>
-      <h2>Ticket Físico</h2>
-      <Ticket
-        {...ticketData}
-        type="physical"
-      />
-      <h2>Ticket Digital</h2>
-      <Ticket
-        {...ticketData}
-        type="digital"
-      />
-    </div>
+    <Layout>
+      <section className="p-6">
+        <h1 className="text-3xl font-bold">EVENTOS Page</h1>
+        <p>EVENTOOS.</p>
+      </section>
+    </Layout>
   );
 };
 
-export default Evento;
+export default Eventos;

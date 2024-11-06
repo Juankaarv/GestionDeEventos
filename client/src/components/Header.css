@@ -1,25 +1,51 @@
 .header {
+  background-color: #A86666;
+  color: white;
+  padding: 0px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background-color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  position: fixed; 
+  top: 0; 
+  width: 98%; 
+  z-index: 800;
+  box-shadow: 10px 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  margin-left: -8px;
+  
+ 
 }
+
 
 .logo {
   font-size: 24px;
   font-weight: bold;
-  color: #7b3fe4;
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 15px;
+
 }
 
-nav a {
-  text-decoration: none;
-  color: #000;
-  font-weight: bold;
+nav ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
+

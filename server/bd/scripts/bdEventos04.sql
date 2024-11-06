@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS sistema_eventos04;
-USE sistema_eventos04;
+CREATE DATABASE IF NOT EXISTS sistema_eventos05;
+USE sistema_eventos05;
 
 -- Tabla de Roles (referenciada por Usuarios)
 CREATE TABLE Roles (
@@ -77,7 +77,7 @@ CREATE TABLE Reservas (
 );
 
 -- Tabla de Métodos de Pago
-CREATE TABLE MetodoPagos (
+CREATE TABLE MetodosPago (
     id INT AUTO_INCREMENT PRIMARY KEY,
     metodo VARCHAR(50) NOT NULL
 );
@@ -101,7 +101,7 @@ CREATE TABLE Pagos (
     fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (ticket_id) REFERENCES Tickets(id) ON DELETE CASCADE,
-    FOREIGN KEY (metodo_pago_id) REFERENCES MetodoPagos(id),
+    FOREIGN KEY (metodo_pago_id) REFERENCES MetodosPago(id),
     FOREIGN KEY (estado_pago_id) REFERENCES EstadoPagos(id)
 );
 

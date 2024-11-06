@@ -1,72 +1,90 @@
-// src/pages/Login.js
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import '../components/Login.css';
+import { Link, useNavigate } from 'react-router-dom'; // Usa useNavigate en lugar de useHistory
+import axios from 'axios'; // Necesitas instalar axios si no lo tienes ya: npm install axios
+import logo from '../img/LogoUticket.png'; 
+import '../components/Login.css'; 
 
-function Login() {
-    const [correo_electronico, setCorreoElectronico] = useState('');
+const Login = () => {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate();
+    const [error, setError] = useState(null); // Para manejar errores de autenticación
+    const navigate = useNavigate(); // Usar useNavigate en lugar de useHistory
 
     const handleLogin = async (e) => {
         e.preventDefault();
+
         try {
-            const response = await fetch('http://localhost:3001/api/usuarios/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ correo_electronico, contrasena: password })
+            // Enviar la solicitud de inicio de sesión al backend
+            const response = await axios.post('http://localhost:3001/login', { // Ajusta la URL según tu backend
+                correo_electronico: email,
+                contrasena: password
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('token', data.token);
-                navigate('/eventos');
-            } else {
-                setErrorMessage('Credenciales incorrectas');
-            }
+            // Si el inicio de sesión es exitoso, se obtiene el token
+            const { token } = response.data;
+            // Almacena el token en el localStorage (o en un estado global si prefieres)
+            localStorage.setItem('authToken', token);
+            
+            // Redirige a la página principal o al dashboard
+            navigate('/dashboard'); // O a la ruta que desees
         } catch (error) {
-            console.error('Error:', error);
-            setErrorMessage('Error al conectar con el servidor');
+            setError('Credenciales incorrectas'); // Muestra un error si no se pueden autenticar
         }
     };
 
     return (
         <div className="login-background">
             <div className="login-container">
-                <form className="login-form" onSubmit={handleLogin}>
-                    <h2>Inicio de Sesión</h2>
-                    <p>
-                        Si ya tienes una cuenta inicia sesión, sino{' '}
-                        <Link to="/register">crea tu cuenta aquí</Link>.
+                <div className="logo-section">
+                    <img src={logo} alt="Logo Utickets" />
+                </div>
+
+                <div className="form-section">
+                    <h2>Bienvenido a <span className="highlight">UTICKET</span></h2>
+                    
+                    <button className="social-login google">Login with Google</button>
+                    <button className="social-login facebook">Login with Facebook</button>
+
+                    {/*<div className="divider">
+                        <span>OR</span>
+                    </div>*/}
+
+                    <form onSubmit={handleLogin}>
+                        <div className="input-container">
+                            <input
+                                type="email"
+                                placeholder="Ingresa tu correo electronico"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Ingresa tu contraseña"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="form-options">
+                            <div className="remember-me">
+                                <input type="checkbox" id="remember-me" />
+                                <label htmlFor="remember-me">Recuerdame</label>
+                            </div>
+                            <Link to="/forgot-password" className="forgot-password">Olvide mi contraseña</Link>
+                        </div>
+
+                        {error && <div className="error-message">{error}</div>} {/* Muestra el error si existe */}
+
+                        <button type="submit" className="login-button">Ingresar</button>
+                    </form>
+
+                    <p className="register-option">
+                        No tienes cuenta? <Link to="/register">Registrarse</Link>
                     </p>
-                    <div className="input-container">
-                        <input
-                            type="email"
-                            placeholder="Correo electrónico"
-                            value={correo_electronico}
-                            onChange={(e) => setCorreoElectronico(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="input-container">
-                        <input
-                            type="password"
-                            placeholder="Contraseña"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="login-button">Ingresar</button>
-                    {errorMessage && <p>{errorMessage}</p>}
-                </form>
-                <p><Link to="/forgot-password">Olvidé mi contraseña</Link></p> {/* Enlace a ForgotPassword */}
+                </div>
             </div>
         </div>
     );
-}
+};
 
 export default Login;

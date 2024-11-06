@@ -1,0 +1,49 @@
+/* src/components/EditEvent.css */
+.edit-event {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.edit-event h2 {
+    text-align: center;
+}
+
+.edit-event form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-event label {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.edit-event input,
+.edit-event textarea {
+    padding: 8px;
+    font-size: 16px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.edit-event button {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-event button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+}
+
+.edit-event button[type="button"] {
+    background-color: #6c757d;
+    color: white;
+    margin-top: 10px;
+}

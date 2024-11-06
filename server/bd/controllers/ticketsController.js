@@ -1,10 +1,11 @@
 // server/bd/controllers/ticketsController.js
 const db = require('../../db');
 
-// Obtener todos los tickets
+// Obtener todos los tickets activos
 exports.getAllTickets = async (req, res) => {
     try {
-        const [results] = await db.query('SELECT * FROM Tickets');
+        // Seleccionar solo tickets activos
+        const [results] = await db.query('SELECT * FROM TipoTickets WHERE activo = TRUE');
         res.json(results);
     } catch (err) {
         console.error('Error obteniendo los tickets:', err);
@@ -12,11 +13,11 @@ exports.getAllTickets = async (req, res) => {
     }
 };
 
-// Obtener ticket por ID
+// Obtener ticket por ID si está activo
 exports.getTicketById = async (req, res) => {
     try {
         const { id } = req.params;
-        const [results] = await db.query('SELECT * FROM Tickets WHERE id = ?', [id]);
+        const [results] = await db.query('SELECT * FROM TipoTickets WHERE id = ? AND activo = TRUE', [id]);
         if (results.length === 0) {
             return res.status(404).json({ error: 'Ticket no encontrado' });
         }
@@ -29,10 +30,14 @@ exports.getTicketById = async (req, res) => {
 
 // Crear nuevo ticket
 exports.createTicket = async (req, res) => {
-    const { codigo_ticket, usuario_id, evento_id, estado_ticket_id } = req.body;
+    const { nombre, es_de_pago, precio, limite_compra, stock, fecha_inicio_venta, fecha_final_venta, es_por_fecha, evento_id } = req.body;
     try {
-        const query = 'INSERT INTO Tickets (codigo_ticket, usuario_id, evento_id, estado_ticket_id) VALUES (?, ?, ?, ?)';
-        const [results] = await db.query(query, [codigo_ticket, usuario_id, evento_id, estado_ticket_id]);
+        const query = `
+            INSERT INTO TipoTickets 
+            (nombre, es_de_pago, precio, limite_compra, stock, fecha_inicio_venta, fecha_final_venta, es_por_fecha, evento_id) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            
+        const [results] = await db.query(query, [nombre, es_de_pago, precio, limite_compra, stock, fecha_inicio_venta, fecha_final_venta, es_por_fecha, evento_id]);
         res.status(201).json({ message: 'Ticket creado con éxito', id: results.insertId });
     } catch (err) {
         console.error('Error creando el ticket:', err);
@@ -42,14 +47,20 @@ exports.createTicket = async (req, res) => {
 
 // Actualizar ticket
 exports.updateTicket = async (req, res) => {
-    const { codigo_ticket, usuario_id, evento_id, estado_ticket_id } = req.body;
+    const { nombre, es_de_pago, precio, limite_compra, stock, fecha_inicio_venta, fecha_final_venta, es_por_fecha, evento_id } = req.body;
     const { id } = req.params;
     try {
-        const query = 'UPDATE Tickets SET codigo_ticket = ?, usuario_id = ?, evento_id = ?, estado_ticket_id = ? WHERE id = ?';
-        const [results] = await db.query(query, [codigo_ticket, usuario_id, evento_id, estado_ticket_id, id]);
+        const query = `
+            UPDATE TipoTickets SET 
+            nombre = ?, es_de_pago = ?, precio = ?, limite_compra = ?, stock = ?, fecha_inicio_venta = ?, fecha_final_venta = ?, es_por_fecha = ?, evento_id = ? 
+            WHERE id = ? AND activo = TRUE`;
+        
+        const [results] = await db.query(query, [nombre, es_de_pago, precio, limite_compra, stock, fecha_inicio_venta, fecha_final_venta, es_por_fecha, evento_id, id]);
+        
         if (results.affectedRows === 0) {
-            return res.status(404).json({ error: 'Ticket no encontrado' });
+            return res.status(404).json({ error: 'Ticket no encontrado o inactivo' });
         }
+        
         res.json({ message: 'Ticket actualizado con éxito' });
     } catch (err) {
         console.error('Error actualizando el ticket:', err);
@@ -57,11 +68,11 @@ exports.updateTicket = async (req, res) => {
     }
 };
 
-// Eliminar ticket
+// Marcar ticket como inactivo en lugar de eliminarlo
 exports.deleteTicket = async (req, res) => {
     const { id } = req.params;
     try {
-        const query = 'UPDATE Tickets SET activo = FALSE WHERE id = ?';
+        const query = 'UPDATE TipoTickets SET activo = FALSE WHERE id = ?';
         const [results] = await db.query(query, [id]);
         if (results.affectedRows === 0) {
             return res.status(404).json({ error: 'Ticket no encontrado' });
