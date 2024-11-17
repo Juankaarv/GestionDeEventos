@@ -11,5 +11,5 @@ router.delete('/:id', usuariosController.deleteUsuario);
 
 // Ruta de inicio de sesión
 router.post('/login', usuariosController.loginUsuario);
-router.post('/forgot-password', usuariosController.forgotPassword);
+
 module.exports = router;

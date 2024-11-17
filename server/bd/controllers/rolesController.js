@@ -1,9 +1,10 @@
 const db = require('../../db');
 
-// Obtener todos los roles
+// Obtener todos los roles activos
 exports.getAllRoles = async (req, res) => {
     try {
-        const [results] = await db.query('SELECT * FROM Roles');
+        // Solo seleccionar roles activos
+        const [results] = await db.query('SELECT * FROM Roles WHERE activo = TRUE');
         res.json(results);
     } catch (err) {
         console.error('Error obteniendo los roles:', err);
@@ -11,11 +12,11 @@ exports.getAllRoles = async (req, res) => {
     }
 };
 
-// Obtener rol por ID
+// Obtener rol por ID si está activo
 exports.getRolById = async (req, res) => {
     try {
         const { id } = req.params;
-        const [results] = await db.query('SELECT * FROM Roles WHERE id = ?', [id]);
+        const [results] = await db.query('SELECT * FROM Roles WHERE id = ? AND activo = TRUE', [id]);
         if (results.length === 0) {
             return res.status(404).json({ error: 'Rol no encontrado' });
         }
@@ -43,9 +44,9 @@ exports.updateRol = async (req, res) => {
     const { nombre } = req.body;
     const { id } = req.params;
     try {
-        const [results] = await db.query('UPDATE Roles SET nombre = ? WHERE id = ?', [nombre, id]);
+        const [results] = await db.query('UPDATE Roles SET nombre = ? WHERE id = ? AND activo = TRUE', [nombre, id]);
         if (results.affectedRows === 0) {
-            return res.status(404).json({ error: 'Rol no encontrado' });
+            return res.status(404).json({ error: 'Rol no encontrado o inactivo' });
         }
         res.json({ message: 'Rol actualizado con éxito' });
     } catch (err) {
@@ -54,7 +55,7 @@ exports.updateRol = async (req, res) => {
     }
 };
 
-// Eliminar rol
+// Marcar rol como inactivo en lugar de eliminarlo
 exports.deleteRol = async (req, res) => {
     const { id } = req.params;
     try {

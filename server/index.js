@@ -1,4 +1,3 @@
-// server/index.js
 const express = require('express');
 const cors = require('cors');  // Importar el módulo cors
 
@@ -7,6 +6,10 @@ const usuariosRoutes = require('./bd/routes/usuarios');
 const eventosRoutes = require('./bd/routes/eventos');
 const rolesRoutes = require('./bd/routes/roles');
 const ticketsRoutes = require('./bd/routes/tickets');
+const categoriasRoutes = require('./bd/routes/categorias');
+const zonasRoutes = require('./bd/routes/zonas')
+const asientosRoutes = require('./bd/routes/asientos')
+const zonascompraRoutes = require('./bd/routes/zonascompra')
 
 const app = express();
 const PORT = 3001;
@@ -25,6 +28,11 @@ app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/eventos', eventosRoutes);
 app.use('/api/roles', rolesRoutes);
 app.use('/api/tickets', ticketsRoutes);
+app.use('/api/categorias', categoriasRoutes);
+app.use('/api/zonas', zonasRoutes);
+app.use('/api/asientos', asientosRoutes);
+app.use('/api/zonascompra', zonascompraRoutes);
+
 
 // Levantar el servidor
 app.listen(PORT, () => {
