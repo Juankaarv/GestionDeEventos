@@ -74,7 +74,7 @@ const AsientosList = () => {
           )}
         </tbody>
       </table>
-      <button onClick={() => navigate('/createAsiento')}>Crear Nuevo Asiento</button>
+      <button onClick={() => navigate('/AsientosCreate')}>Crear Nuevo Asiento</button>
     </div>
   );
 };

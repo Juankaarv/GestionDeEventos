@@ -22,7 +22,7 @@ import Asientos from './pages/Asientos';
 import AsientosCreate from './pages/AsientosCreate';   
 import AsientoEdit from './pages/AsientoEdit';   
 import EventoSelect from './pages/EventoSelect';   
-
+import CheckPago from './pages/CheckPago';   
   
 
 import ZonaEntrada from './pages/ZonaEntrada';  // Página para seleccionar zona
@@ -71,6 +71,7 @@ const App = () => {
         <Route path="/eventoSelect" element={<EventoSelect />} />
         <Route path="/zonaEntrada/:id" element={<ZonaEntrada />} />
         <Route path="/metodo-pago/:zonaId" element={<MetodoPago />} />
+        <Route path="/checkPago" element={<CheckPago />} />
 
         
       </Routes>
