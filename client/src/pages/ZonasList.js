@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
- 
+ import '../pages/ZonasList.css';
 const ZonasList = () => {
   const [zonas, setZonas] = useState([]);
   const navigate = useNavigate();
@@ -41,17 +41,17 @@ const ZonasList = () => {
   };
  
   return (
-<div>
+<div className='zona-container'>
 <h2>Listado de Zonas</h2>
  
       {/* Botón "Crear Zona" */}
-<button
+<button 
         onClick={() => navigate('/Zonas')}
         style={{
           display: 'block',
           margin: '20px auto',
           padding: '10px 20px',
-          backgroundColor: '#28a745',
+          backgroundColor: '#A86666',
           color: 'white',
           border: 'none',
           borderRadius: '5px',

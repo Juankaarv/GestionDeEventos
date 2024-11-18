@@ -1,13 +1,13 @@
 /* Contenedor principal */
-.active-events {
-    padding: 70px;
+.asientos-container {
+    padding: 50px;
     font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
     min-height: 100vh;
 }
 
 /* Título */
-.active-events h2 {
+.asientos-list h2 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
@@ -15,23 +15,27 @@
     font-weight: bold;
 }
 
-/* Botón Crear Evento */
-button {
-    margin: 0 5px;
-    padding: 10px 15px;
+/* Botón "Crear Nuevo Asiento" */
+.btn-create-asiento {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #A86666;
     color: white;
+    font-size: 16px;
     font-weight: bold;
-    background-color: green;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
+.crear-asiento-btn:hover {
+    background-color: #218838;
+}
 
-
-/* Tabla de eventos */
-.events-table {
+/* Tabla */
+.asientos-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -42,7 +46,7 @@ button {
 }
 
 /* Encabezados de la tabla */
-.events-table th {
+.asientos-table th {
     padding: 15px;
     text-align: left;
     background-color: #A86666;
@@ -53,7 +57,7 @@ button {
 }
 
 /* Celdas de la tabla */
-.events-table td {
+.asientos-table td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -61,64 +65,38 @@ button {
     color: #333;
 }
 
-/* Resaltar fila al pasar el cursor */
-.events-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Primera columna fija */
-.events-table th:first-child,
-.events-table td:first-child {
-    text-align: left;
-}
-
-/* Alternar colores en filas */
-.events-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.events-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-/* Links de URL */
-.events-table a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.events-table a:hover {
-    text-decoration: underline;
-}
-
-/* Mensaje de "No hay eventos activos" */
-.events-table td[colspan="13"] {
+/* Mensaje "No hay asientos disponibles" */
+.asientos-table td[colspan="5"] {
     text-align: center;
     font-style: italic;
     color: #666;
     padding: 20px;
 }
 
-/* Botones de acciones (Editar y Eliminar) */
-td button {
-    font-size: 13px;
+/* Botones de acciones */
+.asientos-table button {
+    font-size: 14px;
     padding: 8px 12px;
     border-radius: 4px;
-    margin-right: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-td button:first-child {
-    background-color: #28a745;
+.asientos-table button:first-child {
+    background-color: #007bff;
+    color: white;
 }
 
-td button:first-child:hover {
-    background-color: #218838;
+.asientos-table button:first-child:hover {
+    background-color: #0056b3;
 }
 
-td button:last-child {
+.asientos-table button:last-child {
     background-color: #dc3545;
+    color: white;
 }
 
-td button:last-child:hover {
+.asientos-table button:last-child:hover {
     background-color: #c82333;
 }

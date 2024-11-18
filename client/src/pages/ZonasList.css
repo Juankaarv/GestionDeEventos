@@ -1,0 +1,67 @@
+/* Estilo general para el contenedor del componente */
+.zona-container {
+    font-family: 'Arial', sans-serif;
+    margin: 60px;
+    padding: 10px;
+  }
+  
+  /* Estilo para el título de la página */
+  h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para el botón de "Crear Zona" */
+  .btnCrearzona {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+ 
+  
+  /* Estilo de la tabla */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para las celdas de la tabla */
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  /* Estilo para los encabezados de la tabla */
+  th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Estilo para las filas de la tabla */
+  tr:nth-child(even) {
+    background-color: #A86666;
+  }
+  
+
+  
+  /* Estilo para el mensaje de "No hay zonas disponibles" */
+  td[colspan="6"] {
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    color: #888;
+  }
+  

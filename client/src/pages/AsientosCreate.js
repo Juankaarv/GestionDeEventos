@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import '../pages/AsientoCreate.css';
 const CreateAsiento = () => {
   const [formData, setFormData] = useState({
     zona_id: '',
@@ -59,7 +59,7 @@ const CreateAsiento = () => {
   };
 
   return (
-    <div>
+    <div className='asientoscre-container'>
       <h2>Crear Nuevo Asiento</h2>
       <form onSubmit={handleSubmit}>
         <div>

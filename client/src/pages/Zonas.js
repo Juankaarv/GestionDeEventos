@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../pages/registerZones.css';
+
 
 const RegisterZones = ({ setZoneData }) => {
     const [formData, setFormData] = useState({

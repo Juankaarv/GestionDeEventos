@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
- 
+import '../pages/Asientos.css'; // Importa el archivo CSS
+
 const AsientosList = () => {
   const [asientos, setAsientos] = useState([]);
   const navigate = useNavigate();
- 
+
   // Cargar los asientos desde el backend
   useEffect(() => {
     const fetchAsientos = async () => {
@@ -16,10 +17,10 @@ const AsientosList = () => {
         console.error('Error al cargar los asientos:', error);
       }
     };
- 
+
     fetchAsientos();
   }, []);
- 
+
   // Eliminar asiento
   const handleDelete = async (id) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este asiento?')) {
@@ -39,68 +40,64 @@ const AsientosList = () => {
       }
     }
   };
- 
+
   return (
-<div>
-<h2>Listado de Asientos</h2>
- 
+    <div className="asientos-container">
+      <h2 className="asientos-title">Listado de Asientos</h2>
+
       {/* Botón "Crear Nuevo Asiento" */}
-<button
+      <button
+        className="btn-create-asiento"
         onClick={() => navigate('/AsientosCreate')}
-        style={{
-          display: 'block',
-          margin: '20px auto',
-          padding: '10px 20px',
-          backgroundColor: '#28a745',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
->
+      >
         Crear Nuevo Asiento
-</button>
- 
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
-<thead>
-<tr>
-<th style={{ border: '1px solid black', padding: '8px' }}>Zona</th>
-<th style={{ border: '1px solid black', padding: '8px' }}>Fila</th>
-<th style={{ border: '1px solid black', padding: '8px' }}>Número</th>
-<th style={{ border: '1px solid black', padding: '8px' }}>Estado</th>
-<th style={{ border: '1px solid black', padding: '8px' }}>Acciones</th>
-</tr>
-</thead>
-<tbody>
+      </button>
+
+      <table className="asientos-table">
+        <thead>
+          <tr>
+            <th>Zona</th>
+            <th>Fila</th>
+            <th>Número</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
           {asientos.length > 0 ? (
             asientos.map((asiento) => (
-<tr key={asiento.asiento_id}>
-<td style={{ border: '1px solid black', padding: '8px' }}>{asiento.zona_nombre}</td>
-<td style={{ border: '1px solid black', padding: '8px' }}>{asiento.fila}</td>
-<td style={{ border: '1px solid black', padding: '8px' }}>{asiento.numero}</td>
-<td style={{ border: '1px solid black', padding: '8px' }}>{asiento.estado}</td>
-<td style={{ border: '1px solid black', padding: '8px' }}>
-<button
-                    style={{ marginRight: '10px' }}
+              <tr key={asiento.asiento_id}>
+                <td>{asiento.zona_nombre}</td>
+                <td>{asiento.fila}</td>
+                <td>{asiento.numero}</td>
+                <td>{asiento.estado}</td>
+                <td>
+                  <button
+                    className="btn-edit"
                     onClick={() => navigate(`/AsientoEdit/${asiento.asiento_id}`)}
->
+                  >
                     Editar
-</button>
-<button onClick={() => handleDelete(asiento.asiento_id)}>Eliminar</button>
-</td>
-</tr>
+                  </button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleDelete(asiento.asiento_id)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
             ))
           ) : (
-<tr>
-<td colSpan="5" style={{ textAlign: 'center', padding: '8px' }}>
+            <tr>
+              <td colSpan="5" className="no-asientos">
                 No hay asientos disponibles.
-</td>
-</tr>
+              </td>
+            </tr>
           )}
-</tbody>
-</table>
-</div>
+        </tbody>
+      </table>
+    </div>
   );
 };
- 
+
 export default AsientosList;
