@@ -59,7 +59,7 @@ const ActiveEvents = () => {
  
             {/* Botón "Crear Evento" */}
 <button 
-                onClick={() => navigate('/createEvent')} 
+                onClick={() => navigate('/RegisterEvent')} 
                 style={{
                     marginBottom: '20px',
                     padding: '10px 20px',

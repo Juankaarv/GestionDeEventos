@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../pages/registerZones.css';
 
-
-const RegisterZones = ({ setZoneData }) => {
+const RegisterZones = () => {
     const [formData, setFormData] = useState({
-        eventoId: '',         // ID del evento
-        nombreZona: '',       // Nombre de la zona
-        zonaCapacidad: '',    // Capacidad de la zona
-        zonaPrecioExtra: '',  // Precio adicional de la zona
-        descripcion: '',      // Descripción de la zona
+        eventoId: '',
+        nombreZona: '',
+        zonaCapacidad: '',
+        zonaPrecioExtra: '',
+        descripcion: '',
     });
 
     const [eventos, setEventos] = useState([]);
@@ -60,7 +59,7 @@ const RegisterZones = ({ setZoneData }) => {
             
             if (response.ok) {
                 alert('Zona registrada con éxito');
-                navigate('zonasList');  // Navegar a una página de éxito
+                navigate('/zonasList');  // Redirige a la página de lista de zonas
             } else {
                 alert('Error al registrar la zona');
             }
@@ -68,13 +67,11 @@ const RegisterZones = ({ setZoneData }) => {
             console.error('Error al enviar los datos:', error);
         }
     };
-    
 
     return (
         <form className="register-zones-form" onSubmit={handleSubmit}>
             <h2>Registro de Zona</h2>
 
-            {/* Combo box for selecting event */}
             <label>Evento</label>
             <select
                 name="eventoId"
@@ -90,7 +87,6 @@ const RegisterZones = ({ setZoneData }) => {
                 ))}
             </select>
 
-            {/* Show the existing zones if any */}
             <div>
                 <h3>Zonas existentes</h3>
                 {zonas.length > 0 ? (
@@ -106,7 +102,6 @@ const RegisterZones = ({ setZoneData }) => {
                 )}
             </div>
 
-            {/* Nueva zona */}
             <label>Nombre de la zona</label>
             <input
                 type="text"
@@ -137,7 +132,6 @@ const RegisterZones = ({ setZoneData }) => {
                 required
             />
 
-            {/* Descripción de la zona */}
             <label>Descripción de la zona</label>
             <textarea
                 name="descripcion"
