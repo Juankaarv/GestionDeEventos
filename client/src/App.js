@@ -28,6 +28,7 @@ import CheckPago from './pages/CheckPago';
 import ZonaEntrada from './pages/ZonaEntrada';  // Página para seleccionar zona
 import MetodoPago from './pages/MetodoPago';  // Página para realizar el pago
 
+import EventDetails from './pages/EventDetails';
 
 
 const App = () => {
@@ -73,6 +74,8 @@ const App = () => {
         <Route path="/metodo-pago/:zonaId" element={<MetodoPago />} />
         <Route path="/checkPago" element={<CheckPago />} />
 
+        <Route path="/" element={<Home />} />
+        <Route path="/eventos/:eventId" element={<EventDetails />} />
         
       </Routes>
     </Router>
