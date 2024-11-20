@@ -84,12 +84,12 @@
 }
 
 .asientos-table button:first-child {
-    background-color: #007bff;
+    background-color: #61c258;
     color: white;
 }
 
 .asientos-table button:first-child:hover {
-    background-color: #0056b3;
+    background-color: #0f8235;
 }
 
 .asientos-table button:last-child {
