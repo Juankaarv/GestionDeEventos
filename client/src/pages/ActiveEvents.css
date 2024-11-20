@@ -1,6 +1,6 @@
 /* Contenedor principal */
 .active-events {
-    padding: 70px;
+    padding: 20px;
     font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
     min-height: 100vh;
@@ -11,24 +11,28 @@
     text-align: center;
     color: #333;
     margin-bottom: 20px;
-    font-size: 1.8em;
+    font-size: 1.5em;
     font-weight: bold;
 }
 
 /* Botón Crear Evento */
 button {
-    margin: 0 5px;
+    margin: 10px auto;
     padding: 10px 15px;
     color: white;
     font-weight: bold;
-    background-color: green;
+    background-color: #A86666;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: block;
+    max-width: 200px;
 }
 
-
+button:hover {
+    background-color: darkgreen;
+}
 
 /* Tabla de eventos */
 .events-table {
@@ -39,25 +43,26 @@ button {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
+    font-size: 14px;
 }
 
 /* Encabezados de la tabla */
 .events-table th {
-    padding: 15px;
+    padding: 10px;
     text-align: left;
     background-color: #A86666;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
     font-weight: bold;
 }
 
 /* Celdas de la tabla */
 .events-table td {
-    padding: 15px;
+    padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-    font-size: 14px;
+    font-size: 12px;
     color: #333;
 }
 
@@ -66,25 +71,11 @@ button {
     background-color: #f1f1f1;
 }
 
-/* Primera columna fija */
-.events-table th:first-child,
-.events-table td:first-child {
-    text-align: left;
-}
-
-/* Alternar colores en filas */
-.events-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.events-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-
 /* Links de URL */
 .events-table a {
     color: #007bff;
     text-decoration: none;
+    word-break: break-word; /* Para ajustar URLs largas */
 }
 
 .events-table a:hover {
@@ -101,10 +92,12 @@ button {
 
 /* Botones de acciones (Editar y Eliminar) */
 td button {
-    font-size: 13px;
-    padding: 8px 12px;
+    font-size: 12px;
+    padding: 5px 10px;
     border-radius: 4px;
-    margin-right: 5px;
+    margin: 5px 0;
+    width: 100%; /* Para que los botones se apilen en pantallas pequeñas */
+    max-width: 120px; /* En pantallas grandes, mantiene su tamaño */
 }
 
 td button:first-child {
@@ -121,4 +114,50 @@ td button:last-child {
 
 td button:last-child:hover {
     background-color: #c82333;
+}
+
+/* Alternar colores en filas */
+.events-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.events-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+/* Hacer la tabla responsiva */
+@media screen and (max-width: 768px) {
+    .events-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap; /* Permite scroll horizontal si es necesario */
+    }
+
+    .events-table th, .events-table td {
+        font-size: 10px;
+        padding: 8px;
+    }
+
+    /* Alinear botones de forma vertical */
+    td button {
+        display: block;
+        margin: 5px auto;
+        width: 90%; /* Botones ocupan casi todo el ancho */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .active-events h2 {
+        font-size: 1.2em;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .events-table th, .events-table td {
+        font-size: 9px;
+        padding: 5px;
+    }
 }

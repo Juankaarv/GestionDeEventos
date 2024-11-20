@@ -1,51 +1,21 @@
-.header {
-  background-color: #A86666;
-  color: white;
-  padding: 0px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
-  position: fixed; 
-  top: 0; 
-  width: 98%; 
-  z-index: 800;
-  box-shadow: 10px 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 0;
-  margin-left: -8px;
-  
- 
+/* Cambia el color de fondo de la barra de navegación */
+.custom-bg {
+  background-color: #A86666 !important; /* Reemplaza el color de Bootstrap */
 }
 
-
-.logo {
+.navbar-brand {
   font-size: 24px;
   font-weight: bold;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-
-}
-
-nav ul li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-nav ul li a {
   color: white;
-  text-decoration: none;
-  padding: 5px 10px;
+}
+
+.nav-link {
+  font-size: 16px;
+  color: white !important;
   transition: background-color 0.3s ease;
 }
 
-nav ul li a:hover {
-  background-color: #555;
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
 }
-

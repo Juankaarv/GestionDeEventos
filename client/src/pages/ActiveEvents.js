@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
 import '../pages/ActiveEvents.css';
  
 const ActiveEvents = () => {
@@ -63,7 +65,7 @@ const ActiveEvents = () => {
                 style={{
                     marginBottom: '20px',
                     padding: '10px 20px',
-                    backgroundColor: '#007bff',
+                    backgroundColor: '#A86666',
                     color: 'white',
                     border: 'none',
                     borderRadius: '5px',
