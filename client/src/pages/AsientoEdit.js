@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import '../pages/editAsiento.css';
+
 
 const EditAsiento = () => {
   const { id } = useParams();
@@ -81,7 +83,7 @@ const EditAsiento = () => {
   if (!asiento) return <div>Cargando...</div>;
 
   return (
-    <div>
+    <div className='container-aEdit'>
       <h2>Editar Asiento</h2>
       <form onSubmit={handleSubmit}>
         <div>
