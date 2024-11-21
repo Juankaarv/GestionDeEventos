@@ -29,6 +29,7 @@ import ZonaEntrada from './pages/ZonaEntrada';  // Página para seleccionar zona
 import MetodoPago from './pages/MetodoPago';  // Página para realizar el pago
 
 import EventDetails from './pages/EventDetails';
+import EventDetailsAdmin from './pages/EventDetailsAdmin';
 
 
 const App = () => {
@@ -76,6 +77,10 @@ const App = () => {
 
         <Route path="/" element={<Home />} />
         <Route path="/eventDetails/:eventId" element={<EventDetails />} />
+
+        <Route path="/eventDetailsAdmin/:eventId" element={<EventDetailsAdmin />} />
+        
+
         
       </Routes>
     </Router>

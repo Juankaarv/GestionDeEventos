@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './Register.css'; 
+import './Register.css';
 import logo from '../img/LogoUticket.png';
-import { Link, useNavigate } from 'react-router-dom';  // Importamos useNavigate para redirigir
-import axios from 'axios';  // Importar axios
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -12,14 +12,12 @@ const Register = () => {
     cedula: '',
     email: '',
     password: '',
-    repeatPassword: ''
+    repeatPassword: '',
   });
 
-  const [passwordMatchError, setPasswordMatchError] = useState('');
-  const [passwordRequirementsError, setPasswordRequirementsError] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
-  const navigate = useNavigate(); // Usamos useNavigate para la redirección
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,32 +26,27 @@ const Register = () => {
 
   const validatePassword = () => {
     const { password, repeatPassword } = formData;
+    let validationErrors = {};
 
     if (password !== repeatPassword) {
-      setPasswordMatchError("Las contraseñas no coinciden");
-      return false;
-    } else {
-      setPasswordMatchError("");
+      validationErrors.passwordMatch = "Las contraseñas no coinciden.";
     }
 
-    // Regex para validar la contraseña (debes adaptarlo si es necesario)
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{2,3}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
     if (!passwordRegex.test(password)) {
-      setPasswordRequirementsError("La contraseña debe tener entre 2 y 3 caracteres, una letra mayúscula, un número y un carácter especial.");
-      return false;
-    } else {
-      setPasswordRequirementsError("");
+      validationErrors.passwordStrength =
+        "La contraseña debe tener entre 8 y 20 caracteres, una letra mayúscula, un número y un carácter especial.";
     }
 
-    return true;
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validatePassword()) {
       try {
-        // Enviar la solicitud de registro al backend
-        const response = await axios.post('http://localhost:3001/api/usuarios', {
+        await axios.post('http://localhost:3001/api/usuarios', {
           nombres: formData.nombre,
           apellidos: formData.apellido,
           correo_electronico: formData.email,
@@ -62,68 +55,35 @@ const Register = () => {
           numero_celular: formData.celular,
         });
 
-        // Si la solicitud es exitosa, mostramos un mensaje de éxito y redirigimos
         setSuccessMessage('¡Registro exitoso! Redirigiendo...');
-        setTimeout(() => {
-          navigate('/login');  // Redirigir al login
-        }, 2000);
+        setTimeout(() => navigate('/login'), 2000);
       } catch (error) {
-        // Si ocurre un error, mostramos un mensaje de error
-        setErrorMessage(error.response?.data?.error || 'Hubo un error al registrar el usuario.');
+        setErrors({ server: error.response?.data?.error || 'Error al registrar usuario.' });
       }
     }
   };
 
-  return ( 
+  return (
     <div className="register-background">
       <div className="register-container">
-        <div className='form-section'>
+        <div className="form-section">
           <h2>Crear cuenta</h2>
           <p>
             Si eres nuevo crea tu cuenta, sino{' '}
             <Link to="/login">inicia sesión aquí</Link>.
           </p>
           <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="nombre"
-              placeholder="Ingresa tu nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="apellido"
-              placeholder="Ingresa tus apellidos"
-              value={formData.apellido}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="celular"
-              placeholder="Ej: 7777777"
-              value={formData.celular}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="cedula"
-              placeholder="Ej: 1234567"
-              value={formData.cedula}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Ingresa tu correo electrónico"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+            {['nombre', 'apellido', 'celular', 'cedula', 'email'].map((field) => (
+              <input
+                key={field}
+                type={field === 'email' ? 'email' : 'text'}
+                name={field}
+                placeholder={`Ingresa tu ${field}`}
+                value={formData[field]}
+                onChange={handleChange}
+                required
+              />
+            ))}
             <input
               type="password"
               name="password"
@@ -140,9 +100,9 @@ const Register = () => {
               onChange={handleChange}
               required
             />
-            {passwordMatchError && <p className="error-message">{passwordMatchError}</p>}
-            {passwordRequirementsError && <p className="error-message">{passwordRequirementsError}</p>}
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {errors.passwordMatch && <p className="error-message">{errors.passwordMatch}</p>}
+            {errors.passwordStrength && <p className="error-message">{errors.passwordStrength}</p>}
+            {errors.server && <p className="error-message">{errors.server}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}
             <button type="submit">Crear cuenta</button>
           </form>

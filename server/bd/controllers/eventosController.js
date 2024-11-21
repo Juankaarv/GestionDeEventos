@@ -74,6 +74,20 @@ exports.getAllEventos = async (req, res) => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Obtener evento por ID
 exports.getEventoById = async (req, res) => {
     try {

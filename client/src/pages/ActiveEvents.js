@@ -25,6 +25,10 @@ const ActiveEvents = () => {
     const handleEdit = (eventId) => {
         navigate(`/editEvent/${eventId}`);
     };
+
+    const handleViewMore = (eventId) => {
+        navigate(`/eventDetailsAdmin/${eventId}`);
+    };
  
     const handleDelete = async (eventId) => {
         const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar este evento?');
@@ -45,22 +49,12 @@ const ActiveEvents = () => {
         }
     };
  
-    const getTipoEvento = (evento) => {
-        if (evento.es_evento_virtual && evento.ubicacion) {
-            return 'Ambos'; // Evento presencial y virtual (híbrido)
-        }
-        if (evento.es_evento_virtual) {
-            return 'Virtual'; // Solo virtual
-        }
-        return 'Presencial'; // Solo presencial
-    };
- 
     return (
-<div className="active-events">
-<h2>Eventos Activos</h2>
+        <div className="active-events">
+            <h2>Eventos Activos</h2>
  
             {/* Botón "Crear Evento" */}
-<button 
+            <button 
                 onClick={() => navigate('/RegisterEvent')} 
                 style={{
                     marginBottom: '20px',
@@ -71,104 +65,43 @@ const ActiveEvents = () => {
                     borderRadius: '5px',
                     cursor: 'pointer'
                 }}
->
+            >
                 Crear Evento
-</button>
+            </button>
  
             <table className="events-table">
-<thead>
-<tr>
-<th>Nombre</th>
-<th>Descripción</th>
-<th>Fecha y Hora de Inicio</th>
-<th>Lugar</th>
-<th>Organizador</th>
-<th>Capacidad</th>
-<th>Tipo de Evento</th>
-<th>Tipo de Ticket</th>
-<th>Precio del Ticket</th>
-<th>Fecha de Fin de Venta</th>
-<th>Categoria del Evento</th>
-<th>URL del Evento</th>
-<th>Acciones</th>
-</tr>
-</thead>
-<tbody>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Inicio del Evento</th>
+                        <th>Lugar</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {events.length > 0 ? (
                         events.map(event => (
-<tr key={event.evento_id}>
-<td>{event.titulo}</td>
-<td>{event.descripcion}</td>
-<td>{new Date(event.fecha_hora).toLocaleString()}</td>
-<td>{event.ubicacion || 'No especificado'}</td>
-<td>{event.organizadores || 'Desconocido'}</td>
-<td>{event.cupo_disponible || 'N/A'}</td>
-<td>{getTipoEvento(event)}</td>
- 
+                            <tr key={event.evento_id}>
+                                <td>{event.titulo}</td>
+                                <td>{event.descripcion}</td>
+                                <td>{new Date(event.fecha_hora).toLocaleString()}</td>
+                                <td>{event.ubicacion || 'No especificado'}</td>
                                 <td>
-                                    {event.tickets && event.tickets.length > 0 ? (
-<ul>
-                                            {event.tickets.map((ticket, index) => (
-<li key={index}>
-                                                    {ticket.tipo_ticket || 'No disponible'}
-</li>
-                                            ))}
-</ul>
-                                    ) : (
-                                        'No disponible'
-                                    )}
-</td>
- 
-                                <td>
-                                    {event.tickets && event.tickets.length > 0 ? (
-                                        event.tickets.map((ticket, index) => (
-<div key={index}>
-                                                {ticket.precio ? `$${ticket.precio}` : 'Gratuito'}
-</div>
-                                        ))
-                                    ) : (
-                                        'N/A'
-                                    )}
-</td>
- 
-                                <td>
-                                    {event.tickets && event.tickets.length > 0 ? (
-                                        event.tickets.map((ticket, index) => (
-<ul key={index}>
-<li>
-                                                    {ticket.fecha_final_venta ? new Date(ticket.fecha_final_venta).toLocaleString() : 'N/A'}
-</li>
-</ul>
-                                        ))
-                                    ) : (
-                                        'N/A'
-                                    )}
-</td>
- 
-                                <td>{event.categoria_evento || 'Sin categoría'}</td>
- 
-                                <td>
-                                    {event.url ? (
-<a href={event.url} target="_blank" rel="noopener noreferrer">{event.url}</a>
-                                    ) : (
-                                        'No disponible'
-                                    )}
-</td>
- 
-                                <td>
-<button onClick={() => handleEdit(event.evento_id)}>Editar</button>
-<button onClick={() => handleDelete(event.evento_id)}>Eliminar</button>
-</td>
-</tr>
+                                    <button onClick={() => handleViewMore(event.evento_id)}>Más Información</button>
+                                    <button onClick={() => handleEdit(event.evento_id)}>Editar</button>
+                                    <button onClick={() => handleDelete(event.evento_id)}>Eliminar</button>
+                                </td>
+                            </tr>
                         ))
                     ) : (
-<tr>
-<td colSpan="13">No hay eventos activos</td>
-</tr>
+                        <tr>
+                            <td colSpan="5">No hay eventos activos</td>
+                        </tr>
                     )}
-</tbody>
-</table>
-</div>
+                </tbody>
+            </table>
+        </div>
     );
 };
  

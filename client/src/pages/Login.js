@@ -3,26 +3,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logo from '../img/LogoUticket.png';
 import '../components/Login.css';
-
+ 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-
+ 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError(null); // Limpiamos cualquier error previo
-
+ 
         try {
             const response = await axios.post('http://localhost:3001/api/usuarios/login', {
                 correo_electronico: email,
                 contrasena: password,
             });
-
+ 
             // Guardar el token en localStorage o en el contexto de autenticación
             localStorage.setItem('token', response.data.token);
-
+ 
             // Redirigir al usuario a la página de inicio
             navigate('/');
         } catch (error) {
@@ -34,20 +34,20 @@ const Login = () => {
             }
         }
     };
-
+ 
     return (
         <div className="login-background">
             <div className="login-container">
                 <div className="logo-section">
                     <img src={logo} alt="Logo Utickets" />
                 </div>
-
+ 
                 <div className="form-section">
                     <h2>Bienvenido a <span className="highlight">UTICKET</span></h2>
-                    
+                   
                     <button className="social-login google">Login with Google</button>
                     <button className="social-login facebook">Login with Facebook</button>
-
+ 
                     <form onSubmit={handleLogin}>
                         <div className="input-container">
                             <input
@@ -63,7 +63,7 @@ const Login = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
-
+ 
                         <div className="form-options">
                             <div className="remember-me">
                                 <input type="checkbox" id="remember-me" />
@@ -71,12 +71,12 @@ const Login = () => {
                             </div>
                             <Link to="/forgot-password" className="forgot-password">Olvidé mi contraseña</Link>
                         </div>
-
+ 
                         {error && <div className="error-message">{error}</div>}
-
+ 
                         <button type="submit" className="login-button">Ingresar</button>
                     </form>
-
+ 
                     <p className="register-option">
                         ¿No tienes cuenta? <Link to="/register">Registrarse</Link>
                     </p>
@@ -85,5 +85,5 @@ const Login = () => {
         </div>
     );
 };
-
+ 
 export default Login;
