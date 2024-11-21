@@ -6,6 +6,7 @@ import About from './pages/About';
 import Eventos from './pages/Eventos';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import RegisterEvent from './pages/RegisterEvent';
 import RegisterEventDetails from './pages/RegisterEventDetails';
 import ActiveEvents from './pages/ActiveEvents';
@@ -74,6 +75,7 @@ const App = () => {
         <Route path="/zonaEntrada/:id" element={<ZonaEntrada />} />
         <Route path="/metodo-pago/:zonaId" element={<MetodoPago />} />
         <Route path="/checkPago" element={<CheckPago />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} /> 
 
         <Route path="/" element={<Home />} />
         <Route path="/eventDetails/:eventId" element={<EventDetails />} />
