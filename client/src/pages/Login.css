@@ -6,7 +6,7 @@
     background-color: white;
     padding: 20px;
 }
- 
+
 .login-container {
     display: flex;
     width: 100%;
@@ -19,7 +19,7 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 15px;
 }
- 
+
 .logo-section {
     flex: 1;
     display: flex;
@@ -28,29 +28,29 @@
     background-color: #f5f5f5; /* Fondo opcional */
     padding: 20px;
 }
- 
+
 .logo-section img {
     max-width: 150%;
     height: auto;
     border-radius: 5%;
 }
- 
+
 .form-section {
     flex: 1;
     padding: 30px;
     color: black;
 }
- 
+
 .form-section h2 {
     text-align: center;
     font-size: 1.5em;
     margin-bottom: 20px;
 }
- 
+
 .highlight {
     color: #A86666;
 }
- 
+
 .social-login {
     display: block;
     width: 100%;
@@ -61,32 +61,33 @@
     border-radius: 5px;
     cursor: pointer;
 }
- 
+
 .google {
     background: #db4437;
     color: white;
+    
 }
- 
+
 .facebook {
     background: #3b5998;
     color: white;
 }
- 
+
 .divider {
     text-align: center;
     margin: 15px 0;
     font-weight: bold;
 }
- 
+
 form {
     display: flex;
     flex-direction: column;
 }
- 
+
 .input-container {
     margin: 10px 0;
 }
- 
+
 input {
     padding: 10px;
     font-size: 1em;
@@ -94,14 +95,14 @@ input {
     border: 1px solid #ccc;
     width: 100%;
 }
- 
+
 .form-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
     /*font-size: 0.9em;*/
 }
- 
+
 .login-button {
     background: #A86666; /* Botón de color morado */
     color: white;
@@ -116,18 +117,19 @@ input {
     display: flex;
     align-items: center;
 }
- 
+
 .remember-me input {
     margin-right: 5px;
 }
- 
+
 .register-option {
     text-align: center;
     margin-top: 15px;
 }
- 
+
 .forgot-password, .register-option a {
     color: #A86666;
     text-decoration: none;
- 
+
 }
+

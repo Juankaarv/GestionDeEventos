@@ -41,13 +41,13 @@ const Login = () => {
                 <div className="logo-section">
                     <img src={logo} alt="Logo Utickets" />
                 </div>
- 
+
                 <div className="form-section">
                     <h2>Bienvenido a <span className="highlight">UTICKET</span></h2>
-                   
+                    
                     <button className="social-login google">Login with Google</button>
                     <button className="social-login facebook">Login with Facebook</button>
- 
+
                     <form onSubmit={handleLogin}>
                         <div className="input-container">
                             <input
@@ -67,9 +67,9 @@ const Login = () => {
                         <div className="form-options">
                             <div className="remember-me">
                                 <input type="checkbox" id="remember-me" />
-                                <label htmlFor="remember-me">Recuérdame</label>
+                                <label htmlFor="remember-me">Recuerdame</label>
                             </div>
-                            <Link to="/forgot-password" className="forgot-password">Olvidé mi contraseña</Link>
+                            <Link to="/forgot-password" className="forgot-password">Olvide mi contraseña</Link>
                         </div>
  
                         {error && <div className="error-message">{error}</div>}
