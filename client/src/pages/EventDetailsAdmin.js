@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../pages/eventDetails.css';
+
 
 const EventDetailsAdmin = () => {
     const { eventId } = useParams(); // Capturar el ID del evento desde la URL
@@ -49,28 +51,18 @@ const EventDetailsAdmin = () => {
     }
 
     return (
+        <div>
+       
+       <div className="event-image">
+                <img src="../Img/medusa2016_03.jpg" alt="Evento" />
+            </div>
+
         <div 
             className="event-details-admin"
-            style={{
-                position: 'relative',
-                backgroundImage: `url("https://img.freepik.com/fotos-premium/fuegos-artificiales-confeti-sobre-multitud-festival-musica_989072-16.jpg")`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                minHeight: '100vh',
-                color: '#fff',
-                padding: '20px'
-            }}
+           
         >
             <div 
                 className="content-wrapper"
-                style={{
-                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                    padding: '20px',
-                    borderRadius: '10px',
-                    maxWidth: '800px',
-                    margin: '0 auto',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
-                }}
             >
                 <h2>Detalles del Evento</h2>
                 <div className="event-info">
@@ -99,6 +91,7 @@ const EventDetailsAdmin = () => {
                     <button onClick={() => navigate('/ActiveEvents')} className="btn btn-secondary">Volver</button>
                 </div>
             </div>
+        </div>
         </div>
     );
 };
