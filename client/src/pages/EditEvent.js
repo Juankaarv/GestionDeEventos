@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import '../pages/EditEvent.css';
 
 const EditEvent = () => {
     const { eventId } = useParams();
@@ -101,6 +102,8 @@ const EditEvent = () => {
                         required
                     />
                 </label>
+                <form onSubmit={handleSave}>
+            <div className="form-row">
                 <label>
                     Fecha y Hora:
                     <input
@@ -110,7 +113,7 @@ const EditEvent = () => {
                         onChange={handleChange}
                         required
                     />
-                </label>
+                        </label>
                 <label>
                     Ubicación:
                     <input
@@ -121,6 +124,10 @@ const EditEvent = () => {
                         required
                     />
                 </label>
+                </div>
+
+                    
+            <div className="form-row">
                 <label>
                     Categoría del Evento:
                     <select
@@ -133,11 +140,9 @@ const EditEvent = () => {
                         <option value="1">Conciertos</option>
                         <option value="2">Deportes</option>
                         <option value="3">Conferencias</option>
-                        {/* Agregar más categorías según corresponda */}
                     </select>
                 </label>
 
-                {/* Campo para los organizadores */}
                 <label>
                     Organizadores:
                     <input
@@ -147,8 +152,9 @@ const EditEvent = () => {
                         onChange={handleChange}
                     />
                 </label>
+            </div>
 
-                {/* Campo para el precio base */}
+            <div className="form-row">
                 <label>
                     Precio Base:
                     <input
@@ -158,6 +164,16 @@ const EditEvent = () => {
                         onChange={handleChange}
                     />
                 </label>
+                <label>
+                        Capacidad:
+                        <input
+                            type="number"
+                            name="cupo_disponible"
+                            value={event.cupo_disponible}
+                            onChange={handleChange}
+                        />
+                    </label>
+                </div>
 
                 {/* Campo para indicar si es un evento virtual */}
                 <label>
@@ -207,21 +223,15 @@ const EditEvent = () => {
                     />
                 </label>
 
-                {/* Campo para la capacidad */}
-                <label>
-                    Capacidad:
-                    <input
-                        type="number"
-                        name="cupo_disponible"
-                        value={event.cupo_disponible}
-                        onChange={handleChange}
-                    />
-                </label>
-
+               
+            <div className='button-row'>
                 <button type="submit">Guardar Cambios</button>
                 <button type="button" onClick={() => navigate('/ActiveEvents')}>
                     Cancelar
                 </button>
+            </div>
+               
+            </form>
             </form>
         </div>
     );
