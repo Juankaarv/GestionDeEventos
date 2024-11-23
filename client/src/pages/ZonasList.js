@@ -40,7 +40,7 @@ const ZonasList = () => {
   };
 
   return (
-    <div className="zona-container">
+    <div className="zonaL-container">
       <h2>Listado de Zonas</h2>
 
       <button

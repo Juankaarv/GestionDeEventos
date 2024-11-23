@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import '../pages/zonasedit.css';
 
 const EditZona = () => {
   const { id } = useParams();  // Obtener el id de la zona a editar desde la URL
@@ -83,78 +84,88 @@ const EditZona = () => {
   };
 
   return (
-    <div>
+    <div className='zona-container'>
       <h2>Editar Zona</h2>
       {zona && (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="nombre">Nombre de la Zona</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="capacidad">Capacidad</label>
-            <input
-              type="number"
-              id="capacidad"
-              name="capacidad"
-              value={formData.capacidad}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="precio_extra">Precio Extra</label>
-            <input
-              type="number"
-              id="precio_extra"
-              name="precio_extra"
-              value={formData.precio_extra}
-              onChange={handleInputChange}
-              step="0.01"
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="descripcion">Descripción</label>
-            <textarea
-              id="descripcion"
-              name="descripcion"
-              value={formData.descripcion}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <div>
-            <label htmlFor="evento_id">Evento</label>
-            <select
-              id="evento_id"
-              name="evento_id"
-              value={formData.evento_id}
-              onChange={handleInputChange}
-              required
-            >
-              <option value="">Selecciona un evento</option>
-              {eventos.map((evento) => (
-                <option key={evento.id} value={evento.id}>
-                  {evento.titulo}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button type="submit">Guardar Cambios</button>
-        </form>
+       <form onSubmit={handleSubmit}>
+       <div className="form-row">
+         <div>
+           <label htmlFor="nombre">Nombre de la Zona</label>
+           <input
+             type="text"
+             id="nombre"
+             name="nombre"
+             value={formData.nombre}
+             onChange={handleInputChange}
+             required
+           />
+         </div>
+     
+         <div>
+           <label htmlFor="capacidad">Capacidad</label>
+           <input
+             type="number"
+             id="capacidad"
+             name="capacidad"
+             value={formData.capacidad}
+             onChange={handleInputChange}
+             required
+           />
+         </div>
+       </div>
+     
+       <div className="form-row">
+         <div>
+           <label htmlFor="precio_extra">Precio Extra</label>
+           <input
+             type="number"
+             id="precio_extra"
+             name="precio_extra"
+             value={formData.precio_extra}
+             onChange={handleInputChange}
+             step="0.01"
+             required
+           />
+         </div>
+     
+         <div>
+           <label htmlFor="evento_id">Evento</label>
+           <select
+             id="evento_id"
+             name="evento_id"
+             value={formData.evento_id}
+             onChange={handleInputChange}
+             required
+           >
+             <option value="">Selecciona un evento</option>
+             {eventos.map((evento) => (
+               <option key={evento.id} value={evento.id}>
+                 {evento.titulo}
+               </option>
+             ))}
+           </select>
+         </div>
+       </div>
+     
+       <div>
+         <label htmlFor="descripcion">Descripción</label>
+         <textarea
+           id="descripcion"
+           name="descripcion"
+           value={formData.descripcion}
+           onChange={handleInputChange}
+           required
+         />
+       </div>
+     
+       <div className="button-row">
+         <button type="submit">Guardar Cambios</button>
+         <button type="button" onClick={() => navigate('/ZonasList')}>
+           Cancelar
+         </button>
+       </div>
+     </form>
+     
       )}
     </div>
   );
