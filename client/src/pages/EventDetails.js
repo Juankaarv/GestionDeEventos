@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../pages/eventDetails.css';
 
 const EventDetails = () => {
     const { eventId } = useParams();
@@ -56,67 +57,63 @@ const EventDetails = () => {
     if (!event) {
         return <p>Cargando detalles del evento...</p>;
     }
-
-    return (
-        <div className="container mt-4">
-            <h2>{event.titulo}</h2>
+return(
+    <div className="event-details-container">
+            <h2 className="event-title">{event.titulo}</h2>
             <img 
                 src="https://img.freepik.com/fotos-premium/fuegos-artificiales-confeti-sobre-multitud-festival-musica_989072-16.jpg" 
                 alt="Evento destacado" 
-                className="img-fluid rounded mb-4"
-                style={{ maxHeight: '400px', objectFit: 'cover', width: '100%' }}
+                className="event-image"
             />
-            <p>{event.descripcion}</p>
-            <p><strong>Fecha:</strong> {new Date(event.fecha_hora).toLocaleString()}</p>
-            <p><strong>Lugar:</strong> {event.ubicacion || 'No especificado'}</p>
-            <p><strong>Organizador:</strong> {event.organizadores || 'Desconocido'}</p>
-            <p><strong>Capacidad:</strong> {event.cupo_disponible || 'No especificado'}</p>
-            <p><strong>Categoría:</strong> {event.categoria_evento || 'Sin categoría'}</p>
+            <p className="event-description">{event.descripcion}</p>
+            <p className="event-detail"><strong>Fecha:</strong> {new Date(event.fecha_hora).toLocaleString()}</p>
+            <p className="event-detail"><strong>Lugar:</strong> {event.ubicacion || 'No especificado'}</p>
+            <p className="event-detail"><strong>Organizador:</strong> {event.organizadores || 'Desconocido'}</p>
+            <p className="event-detail"><strong>Capacidad:</strong> {event.cupo_disponible || 'No especificado'}</p>
+            <p className="event-detail"><strong>Categoría:</strong> {event.categoria_evento || 'Sin categoría'}</p>
 
-            {/* Formulario para seleccionar entradas */}
-            <div className="mt-4">
-                <label htmlFor="ticketQuantity" className="form-label"><strong>Cantidad de entradas:</strong></label>
-                <select
-                    id="ticketQuantity"
-                    className="form-select"
-                    value={tickets}
-                    onChange={(e) => setTickets(e.target.value)}
-                >
-                    <option value="">Seleccione cantidad</option>
-                    {[...Array(10)].map((_, i) => (
-                        <option key={i + 1} value={i + 1}>
-                            {i + 1}
-                        </option>
-                    ))}
-                </select>
-            </div>
-            <div className="mt-3">
-                <label htmlFor="ticketType" className="form-label"><strong>Tipo de entrada:</strong></label>
-                <select
-                    id="ticketType"
-                    className="form-select"
-                    value={ticketType}
-                    onChange={handleTicketTypeChange}
-                >
-                    <option value="">Seleccione tipo</option>
-                    {ticketTypes.map((ticket) => (
-                        <option key={ticket.id} value={ticket.nombre}>
-                            {ticket.nombre} - ${ticket.precio}
-                        </option>
-                    ))}
-                </select>
-            </div>
+            <div className="ticket-options">
+    <div className="ticket-option">
+        <label htmlFor="ticketQuantity">Cantidad de entradas:</label>
+        <select
+            id="ticketQuantity"
+            value={tickets}
+            onChange={(e) => setTickets(e.target.value)}
+        >
+            <option value="">Seleccione cantidad</option>
+            {[...Array(10)].map((_, i) => (
+                <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                </option>
+            ))}
+        </select>
+    </div>
+    <div className="ticket-option">
+        <label htmlFor="ticketType">Tipo de entrada:</label>
+        <select
+            id="ticketType"
+            value={ticketType}
+            onChange={handleTicketTypeChange}
+        >
+            <option value="">Seleccione tipo</option>
+            {ticketTypes.map((ticket) => (
+                <option key={ticket.id} value={ticket.nombre}>
+                    {ticket.nombre} - ${ticket.precio}
+                </option>
+            ))}
+        </select>
+    </div>
+</div>
 
-            {/* Mostrar costo total */}
+
             {tickets && ticketType && (
-                <div className="mt-3">
+                <div className="ticket-total">
                     <p><strong>Total:</strong> ${price * tickets}</p>
                 </div>
             )}
 
-            {/* Botón de compra */}
             <button
-                className="btn btn-primary mt-4"
+                className="btn-purchase"
                 onClick={handlePurchase}
                 disabled={!tickets || !ticketType}
             >
@@ -127,3 +124,4 @@ const EventDetails = () => {
 };
 
 export default EventDetails;
+

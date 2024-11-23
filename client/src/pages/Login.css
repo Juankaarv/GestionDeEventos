@@ -130,6 +130,7 @@ input {
 .forgot-password, .register-option a {
     color: #A86666;
     text-decoration: none;
+    font-size: 10em;
 
 }
 

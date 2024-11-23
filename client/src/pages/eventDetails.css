@@ -104,4 +104,142 @@
   .event-info a:hover {
     color: #0288d1;
   }
+  .event-details-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .event-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #000000;
+  }
+  
+  .event-image {
+    max-height: 400px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Descripción del evento */
+  .event-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  /* Detalles del evento */
+  .event-detail {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Bloque de selección de tickets */
+  .ticket-selection {
+    margin-bottom: 20px;
+  }
+  
+  /* Etiquetas de los selectores */
+  .form-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* Selectores de entradas */
+  .form-select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s;
+  }
+  
+  .form-select:focus {
+    outline: none;
+    border-color: #1a73e8;
+  }
+  
+  /* Total de entradas */
+  .ticket-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d9534f;
+    margin-top: 10px;
+  }
+  
+  .btn-purchase {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: #1fb81c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .btn-purchase:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
+  }
+  
+  .btn-purchase:hover:not(:disabled) {
+    background-color: #155bb5;
+  }
+  
+  .btn-purchase:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  
+  .loading-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #666;
+  }
+  .ticket-options {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .ticket-option {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ticket-option label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .ticket-option select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
   

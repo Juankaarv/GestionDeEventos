@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import './Register.css';
+import '../pages/Register.css';
+
 import logo from '../img/LogoUticket.png';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../components/Header';
 
 const Register = () => {
   const [formData, setFormData] = useState({
