@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EventCard from '../components/EventCard';
-import Footer from '../components/Footer';
+
 import './Home.css';
 import logo from '../img/AlicePark.jpg';
 
@@ -52,7 +52,6 @@ const Home = () => {
         )}
       </section>
 
-      <Footer />
     </div>
   );
 };

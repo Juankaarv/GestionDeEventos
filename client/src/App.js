@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
+import Layout from './components/Layout';
 import Header from './components/Header';
 import About from './pages/About';
 import Eventos from './pages/Eventos';
@@ -40,6 +41,7 @@ const App = () => {
   return (
     <Router>
       <Header />
+      <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -85,7 +87,9 @@ const App = () => {
 
         
       </Routes>
+      </Layout>
     </Router>
+    
   );
 };
 
