@@ -3,7 +3,8 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: white;
+    background: linear-gradient(135deg, #A86666, #f5f5f5);
+    
     padding: 20px;
 }
 
@@ -61,15 +62,28 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.social-login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; /* Espaciado con el resto del formulario */
+}
 
 .google {
     background: #db4437;
     color: white;
+    padding: 10px;
+    font-size: 14px;
+    width: 650px;
 }
 
 .facebook {
     background: #3b5998;
     color: white;
+    padding: 10px;
+    font-size: 14px;
+    width: 450px;
 }
 
 .divider {
@@ -103,7 +117,7 @@ input {
 }
 
 .login-button {
-    background: #A86666; /* Botón de color morado */
+    background: #A86666;
     color: white;
     padding: 10px;
     border: none;
@@ -129,6 +143,7 @@ input {
 .forgot-password, .register-option a {
     color: #A86666;
     text-decoration: none;
+    font-size: 15px;
 
 }
 

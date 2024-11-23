@@ -45,8 +45,10 @@ const Login = () => {
                 <div className="form-section">
                     <h2>Bienvenido a <span className="highlight">UTICKET</span></h2>
                     
-                    <button className="social-login google">Login with Google</button>
-                    <button className="social-login facebook">Login with Facebook</button>
+                    <div class="social-login-container">
+                        <button class="social-login google">Login with Google</button>
+                        <button class="social-login facebook">Login with Facebook</button>
+                    </div>
 
                     <form onSubmit={handleLogin}>
                         <div className="input-container">
